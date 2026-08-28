@@ -17,7 +17,7 @@
  * to denysdovhan/vacuum-card, which predates this by years and is installed on
  * plenty of systems. Two cards defining one name means whichever loads second
  * throws, and the loser is whoever the user installed most recently. */
-const CARD_VERSION = "1.0.3";
+const CARD_VERSION = "1.0.4";
 
 /* Cleaning is two independent halves and one order. `sweeping_and_mopping` is
  * both halves at once; `mopping_after_sweeping` is both halves in sequence -
@@ -390,7 +390,10 @@ class VacuumCard extends HTMLElement {
 
 VacuumCard.styles = `
   :host { display: block; }
-  ha-card { padding: 12px 14px 14px; }
+  ha-card {
+    padding: 12px 14px 14px;
+    border: 1px solid var(--ha-card-border-color, var(--divider-color));
+  }
   .head {
     display: flex; align-items: center; gap: 10px;
     padding-bottom: 10px; margin-bottom: 12px;
