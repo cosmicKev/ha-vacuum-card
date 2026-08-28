@@ -17,7 +17,7 @@
  * to denysdovhan/vacuum-card, which predates this by years and is installed on
  * plenty of systems. Two cards defining one name means whichever loads second
  * throws, and the loser is whoever the user installed most recently. */
-const CARD_VERSION = "1.0.1";
+const CARD_VERSION = "1.0.2";
 
 /* Cleaning is two independent halves and one order. `sweeping_and_mopping` is
  * both halves at once; `mopping_after_sweeping` is both halves in sequence -
@@ -317,7 +317,10 @@ class VacuumCard extends HTMLElement {
 
     const segments = config.show_rooms ? this._segments() : [];
     if (segments.length) {
-      rows.push(`<div class="row three">
+      // However many rooms the map has, they share the row: two rooms are two
+      // halves, not two thirds and a gap.
+      const columns = Math.min(segments.length, 4);
+      rows.push(`<div class="row" style="grid-template-columns: repeat(${columns}, minmax(0, 1fr))">
         ${segments
           .map((room) =>
             this._button({
