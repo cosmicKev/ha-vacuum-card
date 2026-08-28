@@ -61,8 +61,12 @@ type: module
 
 ## Use
 
+The element is `ha-vacuum-card`. The shorter `vacuum-card` belongs to
+[denysdovhan/vacuum-card](https://github.com/denysdovhan/vacuum-card), and two
+cards claiming one name breaks whichever loads second.
+
 ```yaml
-type: custom:vacuum-card
+type: custom:ha-vacuum-card
 entity: vacuum.robot
 ```
 
@@ -93,7 +97,7 @@ as-is. If your integration cleans rooms through a different service, point
 `segment_service` and `segment_field` at it:
 
 ```yaml
-type: custom:vacuum-card
+type: custom:ha-vacuum-card
 entity: vacuum.robot
 segment_service: xiaomi_miio.vacuum_clean_segment
 segment_field: segments

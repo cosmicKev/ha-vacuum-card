@@ -13,7 +13,11 @@
  * being written down here.
  */
 
-const CARD_VERSION = "1.0.0";
+/* The element is `ha-vacuum-card`, not `vacuum-card`: the shorter name belongs
+ * to denysdovhan/vacuum-card, which predates this by years and is installed on
+ * plenty of systems. Two cards defining one name means whichever loads second
+ * throws, and the loser is whoever the user installed most recently. */
+const CARD_VERSION = "1.0.1";
 
 /* Cleaning is two independent halves and one order. `sweeping_and_mopping` is
  * both halves at once; `mopping_after_sweeping` is both halves in sequence -
@@ -58,7 +62,7 @@ class VacuumCard extends HTMLElement {
 
   static getStubConfig(hass) {
     const vacuum = Object.keys(hass.states).find((id) => id.startsWith("vacuum."));
-    return { type: "custom:vacuum-card", entity: vacuum || "vacuum.robot" };
+    return { type: "custom:ha-vacuum-card", entity: vacuum || "vacuum.robot" };
   }
 
   setConfig(config) {
@@ -427,11 +431,11 @@ VacuumCard.styles = `
   .pad { padding: 16px; color: var(--secondary-text-color); }
 `;
 
-customElements.define("vacuum-card", VacuumCard);
+customElements.define("ha-vacuum-card", VacuumCard);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "vacuum-card",
+  type: "ha-vacuum-card",
   name: "Vacuum Card",
   description:
     "A robot vacuum as one card: state and battery, what to clean with, which rooms, and go.",
