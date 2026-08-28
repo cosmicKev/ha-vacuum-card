@@ -17,7 +17,7 @@
  * to denysdovhan/vacuum-card, which predates this by years and is installed on
  * plenty of systems. Two cards defining one name means whichever loads second
  * throws, and the loser is whoever the user installed most recently. */
-const CARD_VERSION = "1.0.5";
+const CARD_VERSION = "1.0.6";
 
 /* Cleaning is two independent halves and one order. `sweeping_and_mopping` is
  * both halves at once; `mopping_after_sweeping` is both halves in sequence -
@@ -71,6 +71,9 @@ class VacuumCard extends HTMLElement {
     }
     this._config = { ...DEFAULTS, ...config };
     this._rendered = "";
+    // Rooms picked for the previous configuration are not rooms on this map:
+    // segment 2 means something else once the card points at another robot.
+    this._selected.clear();
   }
 
   getCardSize() {
