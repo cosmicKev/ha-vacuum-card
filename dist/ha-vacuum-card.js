@@ -17,7 +17,7 @@
  * to denysdovhan/vacuum-card, which predates this by years and is installed on
  * plenty of systems. Two cards defining one name means whichever loads second
  * throws, and the loser is whoever the user installed most recently. */
-const CARD_VERSION = "1.0.2";
+const CARD_VERSION = "1.0.3";
 
 /* Cleaning is two independent halves and one order. `sweeping_and_mopping` is
  * both halves at once; `mopping_after_sweeping` is both halves in sequence -
@@ -319,8 +319,7 @@ class VacuumCard extends HTMLElement {
     if (segments.length) {
       // However many rooms the map has, they share the row: two rooms are two
       // halves, not two thirds and a gap.
-      const columns = Math.min(segments.length, 4);
-      rows.push(`<div class="row" style="grid-template-columns: repeat(${columns}, minmax(0, 1fr))">
+      rows.push(`<div class="row">
         ${segments
           .map((room) =>
             this._button({
@@ -410,7 +409,9 @@ VacuumCard.styles = `
   .badge ha-icon { --mdc-icon-size: 17px; }
   .badge.low { color: var(--error-color); }
   .body { display: flex; flex-direction: column; gap: 8px; }
-  .row { display: grid; gap: 8px; }
+  /* auto-fit so a row always fills the card: three modes are thirds, two rooms
+     are halves, and a wrapped row stretches rather than leaving a stub. */
+  .row { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); }
   .row.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .row.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .row.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
