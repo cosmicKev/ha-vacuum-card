@@ -17,7 +17,7 @@
  * to denysdovhan/vacuum-card, which predates this by years and is installed on
  * plenty of systems. Two cards defining one name means whichever loads second
  * throws, and the loser is whoever the user installed most recently. */
-const CARD_VERSION = "1.0.6";
+const CARD_VERSION = "1.0.7";
 
 /* Cleaning is two independent halves and one order. `sweeping_and_mopping` is
  * both halves at once; `mopping_after_sweeping` is both halves in sequence -
@@ -398,14 +398,20 @@ VacuumCard.styles = `
     border: 1px solid var(--ha-card-border-color, var(--divider-color));
   }
   .head {
-    display: flex; align-items: center; gap: 10px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     padding-bottom: 10px; margin-bottom: 12px;
     border-bottom: 1px solid var(--divider-color);
     cursor: pointer;
   }
   .head .robot { --mdc-icon-size: 26px; color: var(--state-icon-color, var(--primary-text-color)); }
-  .name { font-size: 20px; font-weight: 600; flex: 1; }
-  .badges { display: flex; gap: 6px; }
+  /* On a phone the name took the whole row and pushed the battery off the edge
+     of the card. It shrinks and ellipses instead; the badges are what you came
+     to read. */
+  .name {
+    font-size: 20px; font-weight: 600; flex: 1 1 auto;
+    min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .badges { display: flex; gap: 6px; flex: 0 0 auto; max-width: 100%; }
   .badge {
     display: inline-flex; align-items: center; gap: 4px;
     font-size: 15px; color: var(--secondary-text-color);
